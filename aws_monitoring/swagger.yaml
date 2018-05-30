@@ -1,0 +1,143 @@
+swagger: '2.0'
+info:
+  description: |
+    This is a AWS monitoring server. 
+  version: 1.0.0
+  title: AWS Monitoring
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: pradeep.sathasivam@hpe.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+paths:
+  /resources:
+    get:
+      summary: Gets all the resource
+      operationId: getResource
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: resourceType
+        description: Gets the list of only this resource type
+        required: false
+        type: string
+      responses:
+        405:
+          description: Invalid input
+        200:
+          description: Status OK
+          schema:
+            $ref: '#/definitions/Resources'
+  /resources/{resourceType}:
+    get:
+      summary: Gets all the resource
+      operationId: getResourceByType
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: resourceType
+        description: Gets the list of only this resource type
+        required: true
+        type: string
+      responses:
+        405:
+          description: Invalid input
+        200:
+          description: Status OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ResourceType'
+    delete:
+      summary: Delete a resource
+      operationId: deleteResourceByType
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: resourceType
+        description: Gets the list of only this resource type
+        required: true
+        type: string
+      - in: query
+        name: resourceId
+        description: ResourceId to delete
+        required: true
+        type: string
+      responses:
+        400:
+          description: Invalid ResourceType/ID supplied
+        404:
+          description: Resource not found
+        405:
+          description: Validation exception
+        200:
+          description: Resource deleted
+definitions:
+  ResourceType:
+    type: object
+    properties:
+      name: 
+        type: string
+        description: Name of the resource
+      id:
+        type: integer
+        description: Unique ID of the resource
+      status:
+        type: string
+        description: Status of the resource
+    example:
+      name: ip1
+      id: 1
+      status: ACTIVE
+  Resources:
+    type: object
+    additionalProperties:
+      type: array
+      items:
+        $ref: '#/definitions/ResourceType'
+    example:
+      {
+        ipaddr: [{
+          name: 'ip1',
+          id: '1',
+          status: 'ACTIVE',
+        }, {
+          name: 'ip2',
+          id: '2',
+          status: 'ACTIVE',
+        }],
+        ec2Instance: [{
+          name: 'instance-1',
+          id: '1',
+          status: 'ACTIVE',
+        }, {
+          name: 'instance-2',
+          id: '2',
+          status: 'ACTIVE',
+        }]
+      }
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /rest/monitor/1.0.0
+# schemes:
+#  - http
+# Added by API Auto Mocking Plugin
+basePath: /spradeepv7/aws_monitoring/1.0.0
+schemes:
+ - https
+ - http
