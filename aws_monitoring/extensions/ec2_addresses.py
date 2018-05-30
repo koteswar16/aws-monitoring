@@ -9,10 +9,10 @@ class EC2Addresses(base.ExtensionAPI):
         self.ec2 = boto3.client('ec2')
 
     def claim(self):
-        pass
+        return self.ec2.delete_addresses(KeyName="my-address")
 
     def run(self):
-        pass
+        return self.ec2.describe_addresses()
 
     def dry_run(self):
         pass
