@@ -9,10 +9,10 @@ class EC2KeyPairs(base.ExtensionAPI):
         self.ec2 = boto3.client('ec2')
 
     def claim(self):
-        pass
+        return self.ec2.delete_key_pair(KeyName="my-key-pair")
 
     def run(self):
-        pass
+        return self.ec2.describe_key_pairs()
 
     def dry_run(self):
         pass
