@@ -1,14 +1,25 @@
-from aws_monitoring.extensions import ec2_key_pairs as kp
-from aws_monitoring.extensions import ec2_addresses as addr
+#from aws_monitoring.extensions import ec2_key_pairs as kp
+#from aws_monitoring.extensions import ec2_addresses as addr
+#import configparser
+from six.moves import configparser
+import importlib
 
 def main():
-    """keypairs = kp.EC2KeyPairs()
-    keypairs.initialize()
-    print(keypairs.run())"""
-    
-    ip_addr = addr.EC2Addresses()
-    ip_addr.initialize()
-    print(ip_addr.run())
+    ext_path = "aws_monitoring.extensions." 
+    config = configparser.ConfigParser()
+    config.read("../aws_monitor.ini")
+    modules = config.get('extensions', 'resources')
+    print("Modules list: %s" % modules)
+    mod_list = modules.split(",")
+
+    for mod in mod_list:
+        module = importlib.import_module(ext_path + mod)
+        mod_class = getattr(module, mod)
+        mod_inst = mod_class()
+        mod_inst.initialize()
+        resp = mod_inst.run()
+        print("%s: %s" % (mod, resp))
+     
   
 if __name__== "__main__":
     main()
