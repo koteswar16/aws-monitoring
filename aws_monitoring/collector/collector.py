@@ -6,8 +6,9 @@ import importlib
 
 def main():
     ext_path = "aws_monitoring.extensions." 
+    conf_file = "aws_monitor.ini"
     config = configparser.ConfigParser()
-    config.read("../aws_monitor.ini")
+    config.read(conf_file)
     modules = config.get('extensions', 'resources')
     print("Modules list: %s" % modules)
     mod_list = modules.split(",")
