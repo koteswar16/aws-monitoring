@@ -1,6 +1,3 @@
-#from aws_monitoring.extensions import ec2_key_pairs as kp
-#from aws_monitoring.extensions import ec2_addresses as addr
-#import configparser
 from six.moves import configparser
 import importlib
 
