@@ -12,7 +12,8 @@ class EC2SecurityGroups(base.ExtensionAPI):
         pass
 
     def run(self):
-        pass
+        print("Getting ec2 security groups...")
+        return self.ec2.describe_security_groups()
 
     def dry_run(self):
         pass

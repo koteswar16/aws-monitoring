@@ -12,7 +12,8 @@ class EC2Volumes(base.ExtensionAPI):
         pass
 
     def run(self):
-        pass
+        print("Getting ec2 volumes...")
+        return self.ec2.describe_volumes()
 
     def dry_run(self):
         pass

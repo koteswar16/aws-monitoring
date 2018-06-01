@@ -1,18 +1,18 @@
 import boto3
 from aws_monitoring.extensions import base
 
-class EC2KeyPairs(base.ExtensionAPI):
+class EC2VPCs(base.ExtensionAPI):
 
-    """APIs for EC2 key pairs."""
+    """APIs for EC2 vpcs."""
 
     def initialize(self):
         self.ec2 = boto3.client('ec2')
 
     def claim(self):
-        return self.ec2.delete_key_pair(KeyName="my-key-pair")
+        pass
 
     def run(self):
-        return self.ec2.describe_key_pairs()
+        return self.ec2.describe_vpcs()
 
     def dry_run(self):
         pass

@@ -12,7 +12,8 @@ class EC2Snapshots(base.ExtensionAPI):
         pass
 
     def run(self):
-        pass
+        print("Getting ec2 snapshots...")
+        return self.ec2.describe_snapshots()
 
     def dry_run(self):
         pass
